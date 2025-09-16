@@ -1,0 +1,28 @@
+/Users/danielshafer/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2
+/Users/danielshafer/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2.deps.json
+/Users/danielshafer/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2.runtimeconfig.json
+/Users/danielshafer/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2.dll
+/Users/danielshafer/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2.pdb
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.GeneratedMSBuildEditorConfig.editorconfig
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.AssemblyInfoInputs.cache
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.AssemblyInfo.cs
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.csproj.CoreCompileInputs.cache
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.dll
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/refint/ScatterBrainersV2.dll
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.pdb
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.genruntimeconfig.cache
+/Users/danielshafer/ScatterBrainersV2/obj/Debug/net8.0/ref/ScatterBrainersV2.dll
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2.deps.json
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2.runtimeconfig.json
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2.dll
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/bin/Debug/net8.0/ScatterBrainersV2.pdb
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.GeneratedMSBuildEditorConfig.editorconfig
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.AssemblyInfoInputs.cache
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.AssemblyInfo.cs
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.csproj.CoreCompileInputs.cache
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.dll
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/refint/ScatterBrainersV2.dll
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.pdb
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.genruntimeconfig.cache
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ref/ScatterBrainersV2.dll
