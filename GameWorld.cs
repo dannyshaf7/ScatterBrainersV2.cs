@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace ScatterBrainersV2
 {
@@ -25,19 +26,19 @@ namespace ScatterBrainersV2
         public Room Entrance { get { return _entrance; } }
         private Room? _burglarRoom;
         public Room targetRoom = null!; // ! is null-forgiving operator, allowing it to be set later
-        public Room playerRoom = new Room();
-        public Container playerContainer = null!;
+        public Room? playerRoom; // nullable - playerRoom is always set via PlayerEnteredRoom
+        public Container currentContainer = null!;
         public Container targetContainer = null!;
         private Room exit = null!;
         public GameClock _clock;
         public GameClock Clock { get { return _clock; } }
         private bool _burglarTimeout;
         public bool BurglarTimeout { get { return _burglarTimeout; } }
-        private Stack<Item> _targetItems;
+        private List<Item> _targetItems;
 
         private GameWorld()
         {
-            _targetItems = new Stack<Item>();
+            _targetItems = new List<Item>();
             _entrance = CreateWorld();
             _burglarRoom = _entrance;
             burglar = new Burglar(_burglarRoom); // burglar instance
@@ -47,12 +48,15 @@ namespace ScatterBrainersV2
             NotificationCenter.Instance.AddObserver("PlayerEnteredRoom", PlayerEnteredRoom);
             NotificationCenter.Instance.AddObserver("GameClockTick", GameClockTick);
             NotificationCenter.Instance.AddObserver("PlayerPlacedItem", PlayerPlacedItem);
+            NotificationCenter.Instance.AddObserver("PlayerOpenedContainer", PlayerOpenedContainer);
         }
 
         public void PlayerEnteredRoom(Notification notification)
         {
+            Console.WriteLine($"DEBUG: currentContainer is {(currentContainer == null ? "null" : currentContainer.Name)}");
+
             // pattern matching, checks the condition and declares the variable
-            if (notification.Object is not Player player) 
+            if (notification.Object is not Player player)
             {
                 Console.WriteLine("invalid notification for player entered room");
                 return;
@@ -88,40 +92,88 @@ namespace ScatterBrainersV2
 
         public void PlayerPlacedItem(Notification notification)
         {
-            Item item = (Item)notification.Object;
-            if (item != null)
+            // pattern matching syntax - avoids casting twice - check whether notification.Object 
+            // isn't an Item and if it is, assign the casted value to new variable item and 
+            // immediately return, guards agains the wrong object type coming in
+            if (notification.Object is not Item item) return;
+
+            if (playerRoom?.RoomTag == targetRoom?.RoomTag) // compare room tags (names)
             {
-                if (playerRoom == targetRoom)
+                // string interpolation - $ tells app that string has placeholders "{ }" and replace
+                // them with variable values (value of playerRoom.RoomTag), what's inside the braces
+                // will be evaluated as code, not a literal part of the string
+                Console.WriteLine($"Target room reached: {playerRoom?.RoomTag}");
+                Console.WriteLine($"Player container is: {currentContainer?.Name}");
+
+                if (currentContainer != null && currentContainer.Name == targetContainer?.Name) // compare container names
                 {
-                    Console.WriteLine("Target room reached");
-                    if (playerContainer == targetContainer)
+                    Console.WriteLine($"Target container opened: {currentContainer.Name}");
+
+                    // look for match by name - LINQ loops through targetItems list from index 0 forward
+                    // for each i, condition (is Name the same) is checked and first match is returned
+                    // and assigned to match variable. FirstOrDefault LINQ extension method retrieves the
+                    // first in a sequence that satisfies a condition or default (null) if no match found.
+                    // => is lambda operator, separates input parameters (left) from expression (right)
+                    var match = _targetItems?.FirstOrDefault(i => i.Name == item.Name);
+                    if (match != null)
                     {
-                        Console.WriteLine("Target container opened");
-                        Item result = null;
-                        _targetItems.TryPeek(out result);
-                        if (notification.UserInfo.ContainsValue(result))
+                        Console.WriteLine($"Target item placed: {match.Name}");
+                        _targetItems.Remove(match);
+
+                        if (_targetItems.Count <= 0)
                         {
-                            Console.WriteLine("target item placed.");
-                            _targetItems.Pop();
-                            if (_targetItems.Count <= 0)
-                            {
-                                Console.WriteLine("You collected and placed all target items!");
-                            }
+                            Console.WriteLine("You collected and placed all target items!");
                         }
                     }
+                    else
+                    {
+                        Console.WriteLine($"Placed item {item.Name}, but it's not on the target list.");
+                    }
+                }
+                else
+                {
+                    // currentContainer?.Name safely tries to get container name. If null, returns null instead of crashing.
+                    // If the left side is null, ?? checks and replaces with string none. same for targetContainer
+                    string currentContainerName = currentContainer?.Name ?? "none";
+                    string targetContainerName = targetContainer?.Name ?? "none";
+                    Console.WriteLine($"Wrong container. Player: {currentContainerName}, Target: {targetContainerName}");
                 }
             }
         }
 
         public void PlayerOpenedContainer(Notification notification)
         {
-            Container container = (Container)notification.Object;
-            if (container != null)
+            
+            if (notification.Object is not Container container) return;
+            currentContainer = container;
+            // Console.WriteLine($"DEBUG: PlayerOpenedContainer called for {container.Name}");
+        }
+
+        public void ShowTargets()
+        {
+            if (_targetItems.Count == 0)
             {
-                playerContainer = container;
-                Console.WriteLine(container.Name);
+                Console.WriteLine("All target items have been placed!");
+                return;
+            }
+
+            Console.WriteLine("Target items remaining:");
+
+            // multi-line syntax is chaining of LINQ methods, calls both _targetItems.GroupBy(...) and 
+            // _targetItems.Select(...) LINQ methods for handling data in memory. The LINQ extension
+            // methods return new enumerable sequences that can be chained one after another
+            var grouped = _targetItems
+                // groups all items by their name, returns an IEnumerable<IGrouping<string, Item>>
+                .GroupBy(i => i.Name)
+                // transforms each group into new object with a Name and a Count
+                .Select(g => new { Name = g.Key, Count = g.Count() });
+
+            foreach (var entry in grouped)
+            {
+                Console.WriteLine($" - {entry.Name} x{entry.Count}");
             }
         }
+
 
         public Room CreateWorld()
         {
@@ -197,8 +249,8 @@ namespace ScatterBrainersV2
 
             targetRoom = laundryRoom;
             targetContainer = washer;
-            _targetItems.Push(clothes);
-            _targetItems.Push(clothes);
+            _targetItems.Add(new Item("clothes", 1.0f));
+            _targetItems.Add(new Item("clothes", 1.0f));
 
             return outside;
         }

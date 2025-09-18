@@ -10,7 +10,7 @@ namespace ScatterBrainersV2
         private static Command[] _commandArray =
         [
             new BackCommand(), new CloseCommand(), new DropCommand(), new ExamineCommand(),
-            new GoCommand(), new LockCommand(), new OpenCommand(),
+            new GoCommand(), new InventoryCommand(), new LockCommand(), new OpenCommand(),
             new PlaceCommand(), new QuitCommand(), new TakeCommand(), new UnlockCommand()
         ];
 

@@ -26,3 +26,4 @@
 /Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.pdb
 /Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.genruntimeconfig.cache
 /Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ref/ScatterBrainersV2.dll
+/Users/danielshafer/Visual Studios/ScatterBrainersV2/obj/Debug/net8.0/ScatterBrainersV2.sourcelink.json

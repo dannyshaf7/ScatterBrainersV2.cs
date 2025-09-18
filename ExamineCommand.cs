@@ -4,6 +4,7 @@ namespace ScatterBrainersV2
 {
     public class ExamineCommand : Command
     {
+        // is there a way to examine player inventory?
         public ExamineCommand() : base()
         {
             this.Name = "examine";

@@ -166,14 +166,14 @@ namespace ScatterBrainersV2
                     container.Open();
                     if (container.IsOpen)
                     {
-                        IItemContainer tempContainer = CurrentRoom.GetContainer(name);
-                        Notification notification = new Notification("PlayerOpenedContainer", tempContainer);
+                        CurrentContainer = container;
+
+                        Notification notification = new Notification("PlayerOpenedContainer", container);
                         Dictionary<string, object> userInfo = new Dictionary<string, object>();
-                        userInfo["item"] = name; // what user says is stored as variable with keyword as "word", stored scope of method then gone
+                        userInfo["item"] = container.Name;
                         notification.UserInfo = userInfo; // filling dictionary with user uttered word
                         NotificationCenter.Instance.PostNotification(notification);
                         InfoMessage("\nThe " + container.Name + " is now open.");
-                        CurrentContainer = container;
                         success = true;
                     }
                     else
@@ -322,6 +322,8 @@ namespace ScatterBrainersV2
                     Notification notification = new Notification("PlayerPlacedItem", tempItem);
                     Dictionary<string, object> userInfo = new Dictionary<string, object>();
                     userInfo["item"] = itemName; // what the user says is stored as variable with keyword "word", stored scope of method then gone
+                    // userInfo["container"] = CurrentContainer;
+                    // userInfo["room"] = CurrentRoom;
                     notification.UserInfo = userInfo; // filling dictionary with one player uttered word
                     NotificationCenter.Instance.PostNotification(notification);
                 }

@@ -57,6 +57,7 @@ namespace ScatterBrainersV2
                         }
                     }
                 }
+                GameWorld.Instance.ShowTargets(); // debugging only, should be removed once working
             }
         }
 
