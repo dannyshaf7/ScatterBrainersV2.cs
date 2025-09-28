@@ -177,75 +177,138 @@ namespace ScatterBrainersV2
 
         public Room CreateWorld()
         {
-            Room outside = new Room("on the porch outside the front door");
-            Room entryWay = new Room("in the entryway of the home");
-            Room hallWay = new Room("in the main hallway of the home");
-            Room livingRoom = new Room("in the living room");
-            Room kitchen = new Room("in the kitchen");
-            Room halfBath = new Room("in the half bathroom");
-            Room laundryRoom = new Room("in the laundry room");
-            Room masterBedroom = new Room("in the master bedroom");
-            Room masterBath = new Room("in the master bathroom");
-            Room office = new Room("in the office");
-            Room smallBedroom = new Room("in the small bedroom");
+            Room outside = new("on the porch outside the front door");
+            Room entryWay = new("in the entryway of the home");
+            Room hallWay = new("in the main hallway of the home");
+            Room livingRoom = new("in the living room");
+            Room kitchen = new("in the kitchen");
+            Room halfBath = new("in the half bathroom");
+            Room laundryRoom = new("in the laundry room");
+            Room masterBedroom = new("in the master bedroom");
+            Room masterBath = new("in the master bathroom");
+            Room office = new("in the office");
+            Room smallBedroom = new("in the small bedroom");
 
-            Door door = Door.ConnectRooms("north", "south", outside, entryWay);
-            RegularLock aLock = new RegularLock();
-            door.TheLock = aLock;
+            // door variable is needed to be able to attach a lock
+            Door frontDoor = Door.ConnectRooms("north", "south", outside, entryWay);
+            frontDoor.TheLock = new RegularLock();
+            Door.ConnectRooms("north", "south", entryWay, kitchen);
+            Door.ConnectRooms("east", "west", entryWay, livingRoom);
+            Door.ConnectRooms("north", "south", hallWay, masterBedroom);
+            Door officeDoor = Door.ConnectRooms("north", "south", office, hallWay);
+            officeDoor.TheLock = new RegularLock();
+            Door.ConnectRooms("east", "west", hallWay, kitchen);
+            Door.ConnectRooms("east", "west", smallBedroom, hallWay);
+            Door.ConnectRooms("north", "south", livingRoom, halfBath);
+            Door.ConnectRooms("east", "west", kitchen, laundryRoom);
+            Door.ConnectRooms("east", "west", masterBath, masterBedroom);
 
-            door = Door.ConnectRooms("north", "south", entryWay, kitchen);
-            door = Door.ConnectRooms("east", "west", entryWay, livingRoom);
-            door = Door.ConnectRooms("north", "south", hallWay, masterBedroom);
-            door = Door.ConnectRooms("north", "south", office, hallWay);
-            door = Door.ConnectRooms("east", "west", hallWay, kitchen);
-            door = Door.ConnectRooms("east", "west", smallBedroom, hallWay);
-            door = Door.ConnectRooms("north", "south", livingRoom, halfBath);
-            door = Door.ConnectRooms("east", "west", kitchen, laundryRoom);
-            door = Door.ConnectRooms("east", "west", masterBath, masterBedroom);
-
-            Container kitchenTable = new Container("kitchen-table");
-            Container entryCloset = new Container("entry-closet");
-            Container masterChest = new Container("chest-of-drawers", 50f, new RegularLock());
-            Container desk = new Container("desk", 30f, new RegularLock());
-            Container fridge = new Container("refridgerator");
-            Container washer = new Container("washer");
+            Container kitchenTable = new("kitchen-table");
+            Container pantry = new("pantry");
+            Container fridge = new("refridgerator");
+            Container kitchenSink = new("kitchen-sink");
+            Container entryCloset = new("entry-closet");
+            Container masterChest = new("chest-of-drawers", 50f, new RegularLock());
+            Container masterBathSink = new("master-bath-sink");
+            Container desk = new("desk", 30f, new RegularLock());
+            Container washer = new("washer");
 
             entryWay.SetContainer(entryCloset);
             kitchen.SetContainer(kitchenTable);
             kitchen.SetContainer(fridge);
+            kitchen.SetContainer(pantry);
+            kitchen.SetContainer(kitchenSink);
             office.SetContainer(desk);
             masterBedroom.SetContainer(masterChest);
+            masterBath.SetContainer(masterBathSink);
             laundryRoom.SetContainer(washer);
 
-            Item fork = new Item("fork", 0.1f);
-            Item purse = new Item("purse", 0.0f);
-            purse.IsPowerup = true;
-            purse.Capacity = 2.0f;
-            Item backpack = new Item("backpack", 0.0f);
-            backpack.IsPowerup = true;
-            backpack.Capacity = 5.0f;
-            Item tote = new Item("tote", 0.0f);
-            tote.IsPowerup = true;
-            tote.Capacity = 3.0f;
-            Item carKeys = new Item("carkeys", 0.5f);
-            Item cellPhone = new Item("cellphone", 0.5f);
-            Item wallet = new Item("wallet", 0.5f);
-            Item milk = new Item("milk", 3.0f);
-            Item clothes = new Item("clothes", 1.0f);
+            Item fork = new("fork", 0.1f);
+            Item spoon = new("spoon", 0.1f);
+            Item spatula = new("spatula", 0.2f);
+            Item butcherKnife = new("butcher-knife", 0.2f);
+            Item cup = new("cup", 0.3f);
+            Item plate = new("plate", 0.4f);
+            Item bowl = new("bowl", 0.4f);
+            Item carKeys = new("carkeys", 0.5f);
+            Item cellPhone = new("cellphone", 0.5f);
+            Item wallet = new("wallet", 0.5f);
+            Item milk = new("milk", 3.0f);
+            Item banana = new("banana", 0.5f);
+            Item apple = new("apple", 0.5f);
+            Item plunger = new("plunger", 1.0f);
+            Item bowlingBall = new("bowlingball", 5.0f);
+            Item umbrella = new("umbrella", 1.5f);
+            Item clothes = new("clothes", 1.0f);
+            Item socks = new("socks", 0.2f);
+            Item pen = new("pen", 0.1f);
+            Item candle = new("candle", 0.4f);
+            Item lamp = new("lamp", 2.5f);
+            Item guitar = new("guitar", 3.5f);
+            Item vacuum = new("vacuum", 4.0f);
+            Item giantTeddyBear = new("giantteddybear", 5.0f);
+            Item purse = new("purse", 0.0f)
+            {
+                IsPowerup = true,
+                Capacity = 2.0f
+            };
+            Item backpack = new("backpack", 0.0f)
+            {
+                IsPowerup = true,
+                Capacity = 5.0f
+            };
+            Item tote = new("tote", 0.0f)
+            {
+                IsPowerup = true,
+                Capacity = 3.0f
+            };
 
             entryCloset.Add(tote);
             entryCloset.Add(purse);
             entryCloset.Add(backpack);
-            masterBath.Floor.Add(clothes);
+            entryCloset.Add(umbrella);
+            entryCloset.Add(vacuum);
+            entryCloset.Add(lamp);
+
             livingRoom.Floor.Add(clothes);
-            kitchenTable.Add(fork);
-            kitchenTable.Add(fork);
+
+            kitchenSink.Add(fork);
+            kitchenSink.Add(fork);
+            kitchenSink.Add(spoon);
+            kitchenSink.Add(spoon);
+            kitchenSink.Add(spoon);
+            kitchenSink.Add(cup);
+            kitchenSink.Add(bowl);
+            kitchenSink.Add(butcherKnife);
+            kitchenSink.Add(plate);
+            kitchenSink.Add(spatula);
             kitchenTable.Add(cellPhone);
-            masterChest.Add(wallet);
+            kitchenTable.Add(apple);
+            kitchenTable.Add(apple);
+            kitchenTable.Add(apple);
+            kitchenTable.Add(apple);
+            kitchenTable.Add(banana);
+            kitchenTable.Add(banana);
+            kitchenTable.Add(banana);
+            kitchenTable.Add(banana);
+            kitchenTable.Add(banana);
+            kitchenTable.Add(banana);
             fridge.Add(milk);
             fridge.Add(milk);
+
+            smallBedroom.Floor.Add(bowlingBall);
+            smallBedroom.Floor.Add(guitar);
+            smallBedroom.Floor.Add(socks);
+            smallBedroom.Floor.Add(giantTeddyBear);
+
             desk.Add(carKeys);
+            desk.Add(pen);
             masterChest.Add(fork);
+            masterChest.Add(wallet);
+
+            masterBath.Floor.Add(clothes);
+            masterBath.Floor.Add(plunger);
+            masterBathSink.Add(candle);
 
             targetRoom = laundryRoom;
             targetContainer = washer;

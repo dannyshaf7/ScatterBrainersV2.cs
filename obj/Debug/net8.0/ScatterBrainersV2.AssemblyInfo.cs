@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ScatterBrainersV2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+969b50d7904113d5fb110e5e55d25e9400077bba")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ea6db463136104bc3b60c9f107ba9771a3d384e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ScatterBrainersV2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ScatterBrainersV2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

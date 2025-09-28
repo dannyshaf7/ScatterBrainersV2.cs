@@ -22,7 +22,7 @@ namespace ScatterBrainersV2
         {
             _currentRoom = room;
             _playerContainer = new Container("player");
-            _playerContainer.Capacity = 2.0f;
+            _playerContainer.Capacity = 5.0f; // number with decimal interpreted as double, f makes it a float
             roomsVisited = new Stack<Room>();
         }
 
